@@ -1,2 +1,2 @@
 # java-tank-game
-A simple tank shooting game imiplemented using Java JFrame.
+A simple tank shooting game implemented using Java JFrame.
