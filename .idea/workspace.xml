@@ -2,19 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f53433bf-3bad-44d3-90f7-78c07892419d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/catwrx/examples/BallMove.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/catwrx/tankgame/EnemyTank.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/java-tank-game/com/catwrx/examples/DrawCircle.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/java-tank-game/com/catwrx/examples/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/java-tank-game/com/catwrx/examples/MyPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/java-tank-game/com/catwrx/tankgame/Game.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/java-tank-game/com/catwrx/tankgame/MyPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/java-tank-game/com/catwrx/tankgame/PlayerTank.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/java-tank-game/com/catwrx/tankgame/Tank.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/catwrx/examples/DrawCircle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/catwrx/examples/DrawCircle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/catwrx/tankgame/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/catwrx/tankgame/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/catwrx/tankgame/MyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/catwrx/tankgame/MyPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/catwrx/tankgame/Tank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/catwrx/tankgame/Tank.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
