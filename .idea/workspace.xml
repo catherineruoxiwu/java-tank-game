@@ -2,13 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f53433bf-3bad-44d3-90f7-78c07892419d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/catwrx/examples/DrawCircle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/catwrx/tankgame/Game.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/catwrx/tankgame/MyPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/catwrx/tankgame/PlayerTank.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/catwrx/tankgame/Tank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/catwrx/examples/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/catwrx/examples/BallMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/java-tank-game/com/catwrx/examples/DrawCircle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/java-tank-game/com/catwrx/examples/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/java-tank-game/com/catwrx/examples/MyPanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/java-tank-game/com/catwrx/tankgame/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/java-tank-game/com/catwrx/tankgame/MyPanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/java-tank-game/com/catwrx/tankgame/PlayerTank.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/java-tank-game/com/catwrx/tankgame/Tank.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/catwrx/examples/DrawCircle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/catwrx/examples/DrawCircle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/catwrx/tankgame/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/catwrx/tankgame/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/catwrx/tankgame/MyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/catwrx/tankgame/MyPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/catwrx/tankgame/Tank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/catwrx/tankgame/Tank.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,6 +115,19 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.Game">
+    <configuration name="BallMove" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.catwrx.examples.BallMove" />
+      <module name="java-tank-game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.catwrx.examples.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DrawCircle" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.catwrx.examples.DrawCircle" />
       <module name="java-tank-game" />
@@ -142,6 +161,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Game" />
+        <item itemvalue="Application.BallMove" />
         <item itemvalue="Application.DrawCircle" />
         <item itemvalue="Application.Main" />
       </list>

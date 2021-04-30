@@ -5,13 +5,13 @@ import java.awt.*;
 
 
 public class DrawCircle extends JFrame{
-    private MyPanel mp = null;
+    private CirclePanel mp = null;
     public static void main (String[] args){
         new DrawCircle();
     }
 
     public DrawCircle(){
-        mp = new MyPanel();
+        mp = new CirclePanel();
         this.add(mp);
         this.setSize(400, 300);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -20,7 +20,7 @@ public class DrawCircle extends JFrame{
 }
 
 
-class MyPanel extends JPanel {
+class CirclePanel extends JPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
