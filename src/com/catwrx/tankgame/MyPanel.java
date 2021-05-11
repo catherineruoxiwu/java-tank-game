@@ -35,7 +35,7 @@ public class MyPanel extends JPanel implements KeyListener {
      *
      * @param x x-coordinate of the tank's left-upper corner
      * @param y y-coordinate of the tank's left-upper corner
-     * @param g Graphics instance for painting tanks
+     * @param g Graphics instance for painting and repainting tanks
      * @param direction Up(0)/right(1)/down(2)/left(3)
      * @param type Used to differentiate PlayerTank(0) and EnemyTank(1)
      */

@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f53433bf-3bad-44d3-90f7-78c07892419d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/catwrx/tankgame/EnemyTank.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/catwrx/examples/CpuNum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/catwrx/examples/Thread01.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/catwrx/examples/Thread02.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/catwrx/examples/Thread03.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/catwrx/tankgame/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/catwrx/tankgame/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/catwrx/tankgame/MyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/catwrx/tankgame/MyPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -104,9 +109,9 @@
       <recent name="$PROJECT_DIR$/examples" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Game">
-    <configuration name="BallMove" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.catwrx.examples.BallMove" />
+  <component name="RunManager" selected="Application.Thread03">
+    <configuration name="CpuNum" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.catwrx.examples.CpuNum" />
       <module name="java-tank-game" />
       <extension name="coverage">
         <pattern>
@@ -114,13 +119,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DrawCircle" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.catwrx.examples.DrawCircle" />
-      <module name="java-tank-game" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -138,22 +136,52 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
-      <option name="MAIN_CLASS_NAME" value="com.catwrx.examples.Main" />
+    <configuration name="Thread01" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.catwrx.examples.Thread01" />
       <module name="java-tank-game" />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.catwrx.examples.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Thread02" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.catwrx.examples.Thread02" />
+      <module name="java-tank-game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.catwrx.examples.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Thread03" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.catwrx.examples.Thread03" />
+      <module name="java-tank-game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.catwrx.examples.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Thread03" />
+        <item itemvalue="Application.Thread02" />
+        <item itemvalue="Application.Thread01" />
         <item itemvalue="Application.Game" />
-        <item itemvalue="Application.BallMove" />
-        <item itemvalue="Application.DrawCircle" />
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.CpuNum" />
       </list>
     </recent_temporary>
   </component>
