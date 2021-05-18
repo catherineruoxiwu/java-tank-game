@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Vector;
 
-public class MyPanel extends JPanel implements KeyListener {
+public class MyPanel extends JPanel implements KeyListener, Runnable {
     PlayerTank player = null;
     Vector<EnemyTank> enemy= new Vector<>();
     int enemyTankSize = 3;
@@ -14,8 +14,13 @@ public class MyPanel extends JPanel implements KeyListener {
     public MyPanel() {
         player = new PlayerTank(100, 100);
         player.setSpeed(10);
-        for (int i=0; i < enemyTankSize; i++){
-            enemy.add(new EnemyTank(100*(i+1), 0));
+        for (int i = 0; i < enemyTankSize; i++){
+            EnemyTank enemyTank = new EnemyTank(100*(i+1), 0);
+            enemyTank.setDirection(i);
+            Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60, enemyTank.getDirection());
+            enemyTank.shots.add(shot);
+            new Thread(shot).start();
+            enemy.add(enemyTank);
         }
     }
 
@@ -25,9 +30,20 @@ public class MyPanel extends JPanel implements KeyListener {
         g.setColor(Color.darkGray);
         g.fillRect(0, 0, 1000, 750);
         drawTank(player.getX(), player.getY(), g, player.getDirection(), 0);
-        for (int i=0; i < enemyTankSize; i++){
+        if (player.shot != null && player.shot.isAlive()) {
+            g.drawOval(player.shot.getX() - 3, player.shot.getY() - 3, 6, 6);
+        }
+        for (int i = 0; i < enemyTankSize; i++){
             EnemyTank enemyTank = enemy.get(i);
             drawTank(enemyTank.getX(), enemyTank.getY(), g, enemyTank.getDirection(), 1);
+            for (int j = 0; j < enemyTank.shots.size(); j++) {
+                Shot shot = enemyTank.shots.get(j);
+                if (shot.isAlive()){
+                    g.drawOval(shot.getX() - 3, shot.getY() - 3, 6, 6);
+                } else {
+                    enemyTank.shots.remove(shot);
+                }
+            }
         }
     }
 
@@ -104,11 +120,27 @@ public class MyPanel extends JPanel implements KeyListener {
             player.setDirection(3);
             player.moveLeft();
         }
+
+        if (e.getKeyCode() == KeyEvent.VK_J){
+            player.shotEnemyTank();
+        }
         this.repaint();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
 
+    }
+
+    @Override
+    public void run() {
+        while(true) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            this.repaint();
+        }
     }
 }
