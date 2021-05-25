@@ -9,12 +9,12 @@ import java.util.Vector;
 public class MyPanel extends JPanel implements KeyListener, Runnable {
     PlayerTank player = null;
     Vector<EnemyTank> enemy= new Vector<>();
-    int enemyTankSize = 3;
+    int initEnemyTankSize = 3;
 
     public MyPanel() {
         player = new PlayerTank(100, 100);
         player.setSpeed(10);
-        for (int i = 0; i < enemyTankSize; i++){
+        for (int i = 0; i < initEnemyTankSize; i++){
             EnemyTank enemyTank = new EnemyTank(100*(i+1), 0);
             enemyTank.setDirection(i);
             Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60, enemyTank.getDirection());
@@ -33,15 +33,17 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         if (player.shot != null && player.shot.isAlive()) {
             g.drawOval(player.shot.getX() - 3, player.shot.getY() - 3, 6, 6);
         }
-        for (int i = 0; i < enemyTankSize; i++){
+        for (int i = 0; i < enemy.size(); i++){
             EnemyTank enemyTank = enemy.get(i);
-            drawTank(enemyTank.getX(), enemyTank.getY(), g, enemyTank.getDirection(), 1);
-            for (int j = 0; j < enemyTank.shots.size(); j++) {
-                Shot shot = enemyTank.shots.get(j);
-                if (shot.isAlive()){
-                    g.drawOval(shot.getX() - 3, shot.getY() - 3, 6, 6);
-                } else {
-                    enemyTank.shots.remove(shot);
+            if (enemyTank.isAlive()) {
+                drawTank(enemyTank.getX(), enemyTank.getY(), g, enemyTank.getDirection(), 1);
+                for (int j = 0; j < enemyTank.shots.size(); j++) {
+                    Shot shot = enemyTank.shots.get(j);
+                    if (shot.isAlive()){
+                        g.drawOval(shot.getX() - 3, shot.getY() - 3, 6, 6);
+                    } else {
+                        enemyTank.shots.remove(shot);
+                    }
                 }
             }
         }
@@ -100,6 +102,29 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         }
     }
 
+    public static void hitTank(Shot s, EnemyTank enemyTank) {
+        switch (enemyTank.getDirection()) {
+            case 0:
+            case 2:
+                if (s.getX() > enemyTank.getX() && s.getX() < enemyTank.getX() + 40
+                        && s.getY() > enemyTank.getY() && s.getY() < enemyTank.getY() + 60) {
+                    s.setAlive(false);
+                    enemyTank.setAlive(false);
+                };
+                break;
+            case 1:
+            case 3:
+                if (s.getX() > enemyTank.getX() && s.getX() < enemyTank.getX() + 60
+                        && s.getY() > enemyTank.getY() && s.getY() < enemyTank.getY() + 40) {
+                    s.setAlive(false);
+                    enemyTank.setAlive(false);
+                };
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -139,6 +164,12 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+            if (player.shot != null &&  player.shot.isAlive()) {
+                for (int i = 0; i < enemy.size(); i++) {
+                    EnemyTank enemyTank = enemy.get(i);
+                    hitTank(player.shot, enemyTank);
+                }
             }
             this.repaint();
         }
