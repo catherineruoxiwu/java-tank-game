@@ -1,5 +1,3 @@
-// Tutorials followed: https://www.bilibili.com/video/BV1Ay4y1t7hz
-
 package com.catwrx.tankgame;
 
 import javax.swing.*;

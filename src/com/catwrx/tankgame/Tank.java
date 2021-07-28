@@ -20,19 +20,71 @@ public class Tank {
     }
 
     public void moveUp(){
-        y -= speed;
+        if (getY() > 0) {
+            y -= speed;
+        }
     }
 
     public void moveDown(){
-        y += speed;
+        if (getY() + 60 < 720) {
+            y += speed;
+        }
     }
 
     public void moveLeft(){
-        x -= speed;
+        if (getX() > 0) {
+            x -= speed;
+        }
     }
 
     public void moveRight(){
-        x += speed;
+        if (getX() + 60 < 1000){
+            x += speed;
+        }
+    }
+
+    public void moveUp(int times) {
+        for (int i = 0; i < times; i++) {
+            moveUp();
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void moveDown(int times) {
+        for (int i = 0; i < times; i++) {
+            moveDown();
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void moveLeft(int times){
+        for (int i = 0; i < times; i++) {
+            moveLeft();
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void moveRight(int times){
+        for (int i = 0; i < times; i++) {
+            moveRight();
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public int getX() {

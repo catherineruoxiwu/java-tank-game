@@ -4,23 +4,41 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.ImageObserver;
+import java.text.AttributedCharacterIterator;
 import java.util.Vector;
 
 public class MyPanel extends JPanel implements KeyListener, Runnable {
     PlayerTank player = null;
-    Vector<EnemyTank> enemy= new Vector<>();
+    Vector<EnemyTank> enemy = new Vector<>();
+    Vector<Bomb> bombs = new Vector<>();
+    Image image1, image2, image3;
     int initEnemyTankSize = 3;
 
     public MyPanel() {
         player = new PlayerTank(100, 100);
-        player.setSpeed(10);
-        for (int i = 0; i < initEnemyTankSize; i++){
-            EnemyTank enemyTank = new EnemyTank(100*(i+1), 0);
+        player.setSpeed(4);
+        for (int i = 0; i < initEnemyTankSize; i++) {
+            EnemyTank enemyTank = new EnemyTank(100 * (i + 1), 0);
             enemyTank.setDirection(i);
+            enemyTank.setSpeed(4);
+            new Thread(enemyTank).start();
             Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60, enemyTank.getDirection());
             enemyTank.shots.add(shot);
             new Thread(shot).start();
             enemy.add(enemyTank);
+        }
+        image1 = Toolkit.getDefaultToolkit().getImage("res/1.gif");
+        image2 = Toolkit.getDefaultToolkit().getImage("res/2.gif");
+        image3 = Toolkit.getDefaultToolkit().getImage("res/3.gif");
+        MediaTracker t = new MediaTracker(this);
+        t.addImage(image1, 0);
+        t.addImage(image2, 0);
+        t.addImage(image3, 0);
+        try {
+            t.waitForAll();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -32,6 +50,20 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         drawTank(player.getX(), player.getY(), g, player.getDirection(), 0);
         if (player.shot != null && player.shot.isAlive()) {
             g.drawOval(player.shot.getX() - 3, player.shot.getY() - 3, 6, 6);
+        }
+        for (int i = 0; i < bombs.size(); i++) {
+            Bomb bomb = bombs.get(i);
+            if (bomb.getLife() > 6) {
+                g.drawImage(image1, bomb.getX(), bomb.getY(), 60, 60, this);
+            } else if (bomb.getLife() > 3) {
+                g.drawImage(image2, bomb.getX(), bomb.getY(), 60, 60, this);
+            } else {
+                g.drawImage(image3, bomb.getX(), bomb.getY(), 60, 60, this);
+            }
+            bomb.lifeDown();
+            if (!bomb.isAlive()) {
+                bombs.remove(bomb);
+            }
         }
         for (int i = 0; i < enemy.size(); i++){
             EnemyTank enemyTank = enemy.get(i);
@@ -102,22 +134,26 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         }
     }
 
-    public static void hitTank(Shot s, EnemyTank enemyTank) {
+    public void hitTank(Shot s, EnemyTank enemyTank) {
         switch (enemyTank.getDirection()) {
             case 0:
             case 2:
                 if (s.getX() > enemyTank.getX() && s.getX() < enemyTank.getX() + 40
                         && s.getY() > enemyTank.getY() && s.getY() < enemyTank.getY() + 60) {
+                    Bomb bomb = new Bomb(enemyTank.getX(), enemyTank.getY());
+                    bombs.add(bomb);
+                    enemy.remove(enemyTank);
                     s.setAlive(false);
-                    enemyTank.setAlive(false);
                 };
                 break;
             case 1:
             case 3:
                 if (s.getX() > enemyTank.getX() && s.getX() < enemyTank.getX() + 60
                         && s.getY() > enemyTank.getY() && s.getY() < enemyTank.getY() + 40) {
+                    Bomb bomb = new Bomb(enemyTank.getX(), enemyTank.getY());
+                    bombs.add(bomb);
+                    enemy.remove(enemyTank);
                     s.setAlive(false);
-                    enemyTank.setAlive(false);
                 };
                 break;
             default:
@@ -161,13 +197,12 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
     public void run() {
         while(true) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(5);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             if (player.shot != null &&  player.shot.isAlive()) {
-                for (int i = 0; i < enemy.size(); i++) {
-                    EnemyTank enemyTank = enemy.get(i);
+                for (EnemyTank enemyTank : enemy) {
                     hitTank(player.shot, enemyTank);
                 }
             }
