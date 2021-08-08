@@ -8,6 +8,8 @@ import java.awt.image.ImageObserver;
 import java.text.AttributedCharacterIterator;
 import java.util.Vector;
 
+import com.catwrx.tankgame.TankGameLib;
+
 public class MyPanel extends JPanel implements KeyListener, Runnable {
     PlayerTank player = null;
     Vector<EnemyTank> enemy = new Vector<>();
@@ -48,8 +50,17 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         g.setColor(Color.darkGray);
         g.fillRect(0, 0, 1000, 750);
         drawTank(player.getX(), player.getY(), g, player.getDirection(), 0);
-        if (player.shot != null && player.shot.isAlive()) {
-            g.drawOval(player.shot.getX() - 3, player.shot.getY() - 3, 6, 6);
+//        if (player.shot != null && player.shot.isAlive()) {
+//            g.drawOval(player.shot.getX() - 3, player.shot.getY() - 3, 6, 6);
+//        }
+        for (int i = 0; i < player.shots.size(); i++) {
+            Shot shot = player.shots.get(i);
+            if (shot != null && shot.isAlive()) {
+                g.drawOval(shot.getX() - 3, shot.getY() - 3, 6, 6);
+            } else {
+                // TODO: change to setAlive(false)
+                player.shots.remove(shot);
+            }
         }
         for (int i = 0; i < bombs.size(); i++) {
             Bomb bomb = bombs.get(i);
@@ -62,6 +73,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
             }
             bomb.lifeDown();
             if (!bomb.isAlive()) {
+                // TODO: change to setAlive(false)
                 bombs.remove(bomb);
             }
         }
@@ -74,6 +86,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                     if (shot.isAlive()){
                         g.drawOval(shot.getX() - 3, shot.getY() - 3, 6, 6);
                     } else {
+                        // TODO: change to setAlive(false)
                         enemyTank.shots.remove(shot);
                     }
                 }
@@ -135,6 +148,9 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
     }
 
     public void hitTank(Shot s, EnemyTank enemyTank) {
+        if (!enemyTank.isAlive()) {
+            return;
+        }
         switch (enemyTank.getDirection()) {
             case 0:
             case 2:
@@ -142,7 +158,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                         && s.getY() > enemyTank.getY() && s.getY() < enemyTank.getY() + 60) {
                     Bomb bomb = new Bomb(enemyTank.getX(), enemyTank.getY());
                     bombs.add(bomb);
-                    enemy.remove(enemyTank);
+                    enemyTank.setAlive(false);
                     s.setAlive(false);
                 };
                 break;
@@ -152,12 +168,24 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                         && s.getY() > enemyTank.getY() && s.getY() < enemyTank.getY() + 40) {
                     Bomb bomb = new Bomb(enemyTank.getX(), enemyTank.getY());
                     bombs.add(bomb);
-                    enemy.remove(enemyTank);
+                    enemyTank.setAlive(false);
                     s.setAlive(false);
                 };
                 break;
             default:
                 break;
+        }
+    }
+
+    public void hitEnemyTank(Vector<Shot> shots) {
+        for (int i = 0; i < shots.size(); i++) {
+            Shot shot = shots.get(i);
+            if (shot != null &&  shot.isAlive()) {
+                for (int j = 0; j < enemy.size(); j++) {
+                    EnemyTank enemyTank = enemy.get(j);
+                    hitTank(shot, enemyTank);
+                }
+            }
         }
     }
 
@@ -201,11 +229,10 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (player.shot != null &&  player.shot.isAlive()) {
-                for (EnemyTank enemyTank : enemy) {
-                    hitTank(player.shot, enemyTank);
-                }
-            }
+            hitEnemyTank(player.shots);
+            player.shots = TankGameLib.updateVector((Vector<BaseGameObject>) player.shots);
+            // TODO: update enemyTank
+            // TODO: update enemyTank shots
             this.repaint();
         }
     }

@@ -1,56 +1,12 @@
 package com.catwrx.tankgame;
 
-public class Shot implements Runnable {
-    private int x;
-    private int y;
-    private int direction = 0;
-    private int speed = 2;
-    private boolean isAlive = true;
+public class Shot extends BaseGameObject implements Runnable {
 
     public Shot(int x, int y, int direction) {
-        this.x = x;
-        this.y = y;
+        super(x, y);
         this.direction = direction;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getDirection() {
-        return direction;
-    }
-
-    public void setDirection(int direction) {
-        this.direction = direction;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public boolean isAlive() {
-        return isAlive;
-    }
-
-    public void setAlive(boolean alive) {
-        isAlive = alive;
+        this.speed = 2;
+        this.isAlive = true;
     }
 
     @Override
@@ -62,18 +18,10 @@ public class Shot implements Runnable {
                 e.printStackTrace();
             }
             switch (direction) {
-                case 0:
-                    y -= speed;
-                    break;
-                case 1:
-                    x += speed;
-                    break;
-                case 2:
-                    y += speed;
-                    break;
-                case 3:
-                    x -= speed;
-                    break;
+                case 0 -> y -= speed;
+                case 1 -> x += speed;
+                case 2 -> y += speed;
+                case 3 -> x -= speed;
             }
 
             if (!(x >= 0 && x <= 1000 && y >= 0 && y <= 750)) {

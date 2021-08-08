@@ -5,6 +5,7 @@ import java.util.Vector;
 public class EnemyTank extends Tank implements Runnable{
 
     Vector<Shot> shots = new Vector<>();
+    int maxShot = 3;
 
     public boolean isAlive() {
         return isAlive;
@@ -23,6 +24,9 @@ public class EnemyTank extends Tank implements Runnable{
     @Override
     public void run() {
         do {
+            if (shots.size() == maxShot) {
+                return;
+            }
             int times = (int) (Math.random() * 20) + 30;
             switch (getDirection()) {
                 case 0 -> moveUp(times);

@@ -1,22 +1,9 @@
 package com.catwrx.tankgame;
 
-public class Tank {
-    private int x;
-    private int y;
-    private int direction;    // Up(0) Right(1) Down(2) Left(3)
-    private int speed;
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
+public class Tank extends BaseGameObject {
 
     public Tank(int x, int y) {
-        this.x = x;
-        this.y = y;
+        super(x, y);
     }
 
     public void moveUp(){
@@ -85,29 +72,5 @@ public class Tank {
                 e.printStackTrace();
             }
         }
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getDirection() {
-        return direction;
-    }
-
-    public void setDirection(int direction) {
-        this.direction = direction;
     }
 }
