@@ -2,7 +2,7 @@ package com.catwrx.tankgame;
 
 public class Bomb {
     private int x, y;
-    private int life = 9;
+    private int life = 120;
     private boolean isAlive = true;
 
     public int getX() {
