@@ -32,7 +32,7 @@ public class EnemyTank extends Tank implements Runnable{
                 case 2 -> moveDown(times);
                 case 3 -> moveLeft(times);
             }
-            if (isAlive() && shots.size() < maxShot) {
+            if ((int)Math.round(Math.random()) == 1 && isAlive() && shots.size() < maxShot) {
                 switch (getDirection()) {
                     case 0 -> shot = new Shot(getX() + 20, getY(), 0);
                     case 1 -> shot = new Shot(getX() + 60, getY() + 20, 1);

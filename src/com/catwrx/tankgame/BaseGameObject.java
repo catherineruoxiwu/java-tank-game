@@ -1,11 +1,11 @@
 package com.catwrx.tankgame;
 
 public abstract class BaseGameObject {
-    int x;
-    int y;
-    int direction;    // Up(0) Right(1) Down(2) Left(3)
-    int speed;
-    boolean isAlive = true;
+    protected int x;
+    protected int y;
+    protected int direction;    // Up(0) Right(1) Down(2) Left(3)
+    protected int speed;
+    protected boolean isAlive = true;
 
     public BaseGameObject(int x, int y) {
         this.x = x;

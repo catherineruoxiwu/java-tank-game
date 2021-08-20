@@ -46,7 +46,9 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         super.paint(g);
         g.setColor(Color.darkGray);
         g.fillRect(0, 0, 1000, 750);
-        drawTank(player.getX(), player.getY(), g, player.getDirection(), 0);
+        if (player != null && player.isAlive()) {
+            drawTank(player.getX(), player.getY(), g, player.getDirection(), 0);
+        }
 //        if (player.shot != null && player.shot.isAlive()) {
 //            g.drawOval(player.shot.getX() - 3, player.shot.getY() - 3, 6, 6);
 //        }
@@ -142,28 +144,28 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         }
     }
 
-    public void hitTank(Shot s, EnemyTank enemyTank) {
-        if (!enemyTank.isAlive()) {
+    public void hitTank(Shot s, Tank tank) {
+        if (!tank.isAlive()) {
             return;
         }
-        switch (enemyTank.getDirection()) {
+        switch (tank.getDirection()) {
             case 0:
             case 2:
-                if (s.getX() > enemyTank.getX() && s.getX() < enemyTank.getX() + 40
-                        && s.getY() > enemyTank.getY() && s.getY() < enemyTank.getY() + 60) {
-                    Bomb bomb = new Bomb(enemyTank.getX(), enemyTank.getY());
+                if (s.getX() > tank.getX() && s.getX() < tank.getX() + 40
+                        && s.getY() > tank.getY() && s.getY() < tank.getY() + 60) {
+                    Bomb bomb = new Bomb(tank.getX(), tank.getY());
                     bombs.add(bomb);
-                    enemyTank.setAlive(false);
+                    tank.setAlive(false);
                     s.setAlive(false);
                 };
                 break;
             case 1:
             case 3:
-                if (s.getX() > enemyTank.getX() && s.getX() < enemyTank.getX() + 60
-                        && s.getY() > enemyTank.getY() && s.getY() < enemyTank.getY() + 40) {
-                    Bomb bomb = new Bomb(enemyTank.getX(), enemyTank.getY());
+                if (s.getX() > tank.getX() && s.getX() < tank.getX() + 60
+                        && s.getY() > tank.getY() && s.getY() < tank.getY() + 40) {
+                    Bomb bomb = new Bomb(tank.getX(), tank.getY());
                     bombs.add(bomb);
-                    enemyTank.setAlive(false);
+                    tank.setAlive(false);
                     s.setAlive(false);
                 };
                 break;
@@ -172,13 +174,28 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         }
     }
 
-    public void hitEnemyTank(Vector<Shot> shots) {
-        for (int i = 0; i < shots.size(); i++) {
-            Shot shot = shots.get(i);
+    public void hitEnemyTank() {
+        for (int i = 0; i < player.shots.size(); i++) {
+            Shot shot = player.shots.get(i);
             if (shot != null &&  shot.isAlive()) {
                 for (int j = 0; j < enemy.size(); j++) {
                     EnemyTank enemyTank = enemy.get(j);
                     hitTank(shot, enemyTank);
+                }
+            }
+        }
+    }
+
+    public void hitPlayerTank() {
+        if (!player.isAlive()) {
+            return;
+        }
+        for (int i = 0; i < enemy.size(); i++) {
+            EnemyTank enemyTank = enemy.get(i);
+            for (int j = 0; j < enemyTank.shots.size(); j++) {
+                Shot shot = enemyTank.shots.get(j);
+                if (player.isAlive() && shot.isAlive()) {
+                    hitTank(shot, player);
                 }
             }
         }
@@ -224,9 +241,10 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            hitEnemyTank(player.shots);
+            hitEnemyTank();
+            hitPlayerTank();
             enemy = TankGameLib.updateEnemyTankShotVector(enemy);
-            player.shots = TankGameLib.updateShotVector(player.shots);
+            player = TankGameLib.updatePlayerTankShotVector(player);
             this.repaint();
         }
     }
