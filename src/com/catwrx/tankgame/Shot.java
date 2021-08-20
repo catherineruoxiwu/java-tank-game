@@ -5,8 +5,7 @@ public class Shot extends BaseGameObject implements Runnable {
     public Shot(int x, int y, int direction) {
         super(x, y);
         this.direction = direction;
-        this.speed = 2;
-        this.isAlive = true;
+        this.speed = 7;
     }
 
     @Override

@@ -5,7 +5,7 @@ public abstract class BaseGameObject {
     int y;
     int direction;    // Up(0) Right(1) Down(2) Left(3)
     int speed;
-    boolean isAlive;
+    boolean isAlive = true;
 
     public BaseGameObject(int x, int y) {
         this.x = x;

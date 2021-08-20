@@ -55,7 +55,6 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
             if (shot != null && shot.isAlive()) {
                 g.drawOval(shot.getX() - 3, shot.getY() - 3, 6, 6);
             } else {
-                // TODO: change to setAlive(false)
                 assert shot != null;
                 shot.setAlive(false);
             }
@@ -83,8 +82,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                     if (shot.isAlive()){
                         g.drawOval(shot.getX() - 3, shot.getY() - 3, 6, 6);
                     } else {
-                        // TODO: change to setAlive(false)
-                        enemyTank.shots.remove(shot);
+                        shot.setAlive(false);
                     }
                 }
             }
@@ -227,7 +225,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                 e.printStackTrace();
             }
             hitEnemyTank(player.shots);
-            enemy = TankGameLib.updateTankVector(enemy);
+            enemy = TankGameLib.updateEnemyTankShotVector(enemy);
             player.shots = TankGameLib.updateShotVector(player.shots);
             this.repaint();
         }

@@ -14,7 +14,7 @@ public class TankGameLib {
         return newVector;
     }
 
-    public static Vector<EnemyTank> updateTankVector(Vector<EnemyTank> Tanks) {
+    public static Vector<EnemyTank> updateEnemyTankShotVector(Vector<EnemyTank> Tanks) {
         for (EnemyTank tank: Tanks) {
             if (tank.isAlive()) {
                 tank.shots = updateShotVector(tank.shots);
