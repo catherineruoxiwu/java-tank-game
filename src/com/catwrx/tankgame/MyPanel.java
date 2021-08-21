@@ -27,6 +27,12 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
             new Thread(shot).start();
             enemy.add(enemyTank);
         }
+        Vector<Tank> allTanks = new Vector<Tank>(enemy);
+        allTanks.add(player);
+        for (int i = 0; i < initEnemyTankSize; i++) {
+            EnemyTank enemyTank = enemy.get(i);
+            enemyTank.setAllTanks(allTanks);
+        }
         image1 = Toolkit.getDefaultToolkit().getImage("res/1.gif");
         image2 = Toolkit.getDefaultToolkit().getImage("res/2.gif");
         image3 = Toolkit.getDefaultToolkit().getImage("res/3.gif");
