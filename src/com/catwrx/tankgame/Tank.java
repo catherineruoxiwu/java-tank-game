@@ -10,7 +10,6 @@ public class Tank extends BaseGameObject {
 
     Vector<Tank> allTanks = new Vector<>();
     
-    // All other tanks are "enemyTanks"
     public void setAllTanks(Vector<Tank> allTanks) {
         this.allTanks = allTanks;
     }

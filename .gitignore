@@ -1,4 +1,5 @@
 /src/com/catwrx/examples/
 /.idea/
-/out/
 java-tank-game.iml
+/TankGameRecord.txt
+/out/

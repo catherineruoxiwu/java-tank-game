@@ -4,23 +4,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.util.Objects;
 import java.util.Vector;
 
 
-public class MyPanel extends JPanel implements KeyListener, Runnable {
+public class MainPanel extends JPanel implements KeyListener, Runnable {
     PlayerTank player = null;
     Vector<EnemyTank> enemy = new Vector<>();
     Vector<Bomb> bombs = new Vector<>();
     Image image1, image2, image3;
-    int initEnemyTankSize = 3;
+    int initEnemyTankSize = TankGameLib.tankNum - TankGameLib.getDeadEnemyTankNum();
 
-    public MyPanel() {
+    public MainPanel() {
         player = new PlayerTank(100, 100);
         player.setSpeed(4);
         for (int i = 0; i < initEnemyTankSize; i++) {
-            EnemyTank enemyTank = new EnemyTank(100 * (i + 1), 0);
-            enemyTank.setDirection(i);
-            enemyTank.setSpeed(4);
+            EnemyTank enemyTank = new EnemyTank(150 * (i + 1),  700 - 120 * (i + 1));
+            enemyTank.setDirection(0);
+            enemyTank.setSpeed(2);
             new Thread(enemyTank).start();
             Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60, enemyTank.getDirection());
             enemyTank.shots.add(shot);
@@ -47,28 +49,34 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         }
     }
 
+    // Info Dashboard
+    public void paintDashboard(Graphics g) {
+        g.setColor(Color.gray);
+        g.fillRect(1000, 0, 500, 750);
+        g.setColor((Color.pink));
+        Font font = new Font("Arial", Font.BOLD,22);
+        g.setFont(font);
+        g.drawString("# of tanks you have destroyed: ", 1050, 50);
+        g.drawString("*   " + TankGameLib.getDeadEnemyTankNum(), 1120, 120);
+        drawTank(1050, 80, g, 0, 1);
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         g.setColor(Color.darkGray);
         g.fillRect(0, 0, 1000, 750);
+        paintDashboard(g);
         if (player != null && player.isAlive()) {
             drawTank(player.getX(), player.getY(), g, player.getDirection(), 0);
         }
-//        if (player.shot != null && player.shot.isAlive()) {
-//            g.drawOval(player.shot.getX() - 3, player.shot.getY() - 3, 6, 6);
-//        }
-        for (int i = 0; i < player.shots.size(); i++) {
+        for (int i = 0; i < Objects.requireNonNull(player).shots.size(); i++) {
             Shot shot = player.shots.get(i);
             if (shot != null && shot.isAlive()) {
                 g.drawOval(shot.getX() - 3, shot.getY() - 3, 6, 6);
-            } else {
-                assert shot != null;
-                shot.setAlive(false);
             }
         }
-        for (int i = 0; i < bombs.size(); i++) {
-            Bomb bomb = bombs.get(i);
+        for (Bomb bomb : bombs) {
             if (!bomb.isAlive()) {
                 continue;
             }
@@ -81,16 +89,13 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
             }
             bomb.lifeDown();
         }
-        for (int i = 0; i < enemy.size(); i++){
-            EnemyTank enemyTank = enemy.get(i);
+        for (EnemyTank enemyTank : enemy) {
             if (enemyTank.isAlive()) {
                 drawTank(enemyTank.getX(), enemyTank.getY(), g, enemyTank.getDirection(), 1);
                 for (int j = 0; j < enemyTank.shots.size(); j++) {
                     Shot shot = enemyTank.shots.get(j);
-                    if (shot.isAlive()){
+                    if (shot != null && shot.isAlive()) {
                         g.drawOval(shot.getX() - 3, shot.getY() - 3, 6, 6);
-                    } else {
-                        shot.setAlive(false);
                     }
                 }
             }
@@ -107,46 +112,40 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
      */
     public void drawTank (int x, int y, Graphics g, int direction, int type) {
         switch (type) {
-            case 0:
-                g.setColor(Color.cyan);
-                break;
-            case 1:
-                g.setColor(Color.yellow);
-                break;
+            case 0 -> g.setColor(Color.cyan);
+            case 1 -> g.setColor(Color.yellow);
         }
 
         switch (direction) {
-            case 0:
+            case 0 -> {
                 g.fill3DRect(x, y, 10, 60, false);
                 g.fill3DRect(x + 30, y, 10, 60, false);
                 g.fill3DRect(x + 10, y + 10, 20, 40, false);
                 g.fillOval(x + 10, y + 20, 20, 20);
                 g.drawLine(x + 20, y + 30, x + 20, y);
-                break;
-            case 1:
+            }
+            case 1 -> {
                 g.fill3DRect(x, y, 60, 10, false);
                 g.fill3DRect(x, y + 30, 60, 10, false);
                 g.fill3DRect(x + 10, y + 10, 40, 20, false);
                 g.fillOval(x + 20, y + 10, 20, 20);
                 g.drawLine(x + 30, y + 20, x + 60, y + 20);
-                break;
-            case 2:
+            }
+            case 2 -> {
                 g.fill3DRect(x, y, 10, 60, false);
                 g.fill3DRect(x + 30, y, 10, 60, false);
                 g.fill3DRect(x + 10, y + 10, 20, 40, false);
                 g.fillOval(x + 10, y + 20, 20, 20);
                 g.drawLine(x + 20, y + 30, x + 20, y + 60);
-                break;
-            case 3:
+            }
+            case 3 -> {
                 g.fill3DRect(x, y, 60, 10, false);
                 g.fill3DRect(x, y + 30, 60, 10, false);
                 g.fill3DRect(x + 10, y + 10, 40, 20, false);
                 g.fillOval(x + 20, y + 10, 20, 20);
                 g.drawLine(x, y + 20, x + 30, y + 20);
-                break;
-            default:
-                g.fill3DRect(x, y, 10, 60, false);
-                break;
+            }
+            default -> g.fill3DRect(x, y, 10, 60, false);
         }
     }
 
@@ -162,6 +161,16 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                     Bomb bomb = new Bomb(tank.getX(), tank.getY());
                     bombs.add(bomb);
                     tank.setAlive(false);
+                    if (tank instanceof EnemyTank) {
+                        TankGameLib.addDeadEnemyTankNum();
+                    }
+                    if (tank instanceof PlayerTank) {
+                        try {
+                            TankGameLib.keepGameRecord(true);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     s.setAlive(false);
                 };
                 break;
@@ -172,6 +181,16 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                     Bomb bomb = new Bomb(tank.getX(), tank.getY());
                     bombs.add(bomb);
                     tank.setAlive(false);
+                    if (tank instanceof EnemyTank) {
+                        TankGameLib.addDeadEnemyTankNum();
+                    }
+                    if (tank instanceof PlayerTank) {
+                        try {
+                            TankGameLib.keepGameRecord(true);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     s.setAlive(false);
                 };
                 break;
@@ -184,8 +203,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         for (int i = 0; i < player.shots.size(); i++) {
             Shot shot = player.shots.get(i);
             if (shot != null &&  shot.isAlive()) {
-                for (int j = 0; j < enemy.size(); j++) {
-                    EnemyTank enemyTank = enemy.get(j);
+                for (EnemyTank enemyTank : enemy) {
                     hitTank(shot, enemyTank);
                 }
             }
@@ -196,11 +214,10 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
         if (!player.isAlive()) {
             return;
         }
-        for (int i = 0; i < enemy.size(); i++) {
-            EnemyTank enemyTank = enemy.get(i);
+        for (EnemyTank enemyTank : enemy) {
             for (int j = 0; j < enemyTank.shots.size(); j++) {
                 Shot shot = enemyTank.shots.get(j);
-                if (player.isAlive() && shot.isAlive()) {
+                if (player.isAlive() && shot != null && shot.isAlive()) {
                     hitTank(shot, player);
                 }
             }
@@ -241,7 +258,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
 
     @Override
     public void run() {
-        while(true) {
+        while (true) {
             try {
                 Thread.sleep(2);
             } catch (InterruptedException e) {

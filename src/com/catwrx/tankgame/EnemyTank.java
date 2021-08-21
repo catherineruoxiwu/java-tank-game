@@ -16,12 +16,7 @@ public class EnemyTank extends Tank implements Runnable {
     public void run() {
         do {
             int times = (int) (Math.random() * 20) + 30;
-            switch (getDirection()) {
-                case 0 -> moveUp(times);
-                case 1 -> moveRight(times);
-                case 2 -> moveDown(times);
-                case 3 -> moveLeft(times);
-            }
+            setDirection((int) (Math.random() * 4));
             if ((int)Math.round(Math.random()) == 1 && isAlive() && shots.size() < maxShot) {
                 switch (getDirection()) {
                     case 0 -> shot = new Shot(getX() + 20, getY(), 0);
@@ -32,7 +27,12 @@ public class EnemyTank extends Tank implements Runnable {
                 shots.add(shot);
                 new Thread(shot).start();
             }
-            setDirection((int) (Math.random() * 4));
+            switch (getDirection()) {
+                case 0 -> moveUp(times);
+                case 1 -> moveRight(times);
+                case 2 -> moveDown(times);
+                case 3 -> moveLeft(times);
+            }
         } while (isAlive());
     }
 }
